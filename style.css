@@ -23,3 +23,16 @@ body {
   margin-right: 10px;
   margin-bottom: 10rem;
 }
+
+.item {
+  border-radius: 6px;
+  margin: 2px;
+}
+
+.snake {
+  background-color: #529e80;
+}
+
+.food {
+  background-color: #9fa5e8;
+}
