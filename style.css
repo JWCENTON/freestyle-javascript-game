@@ -18,3 +18,8 @@ body {
   grid-template-rows: repeat(20, 1fr);
   border-radius: 10px;
 }
+
+.start-button {
+  margin-right: 10px;
+  margin-bottom: 20rem;
+}
