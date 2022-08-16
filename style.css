@@ -70,8 +70,6 @@ body {
 
 .apple {
   background-color: #e40b0b;
-  grid-column-start: 10;
-  grid-row-start: 10;
 }
 
 .apple::after {
