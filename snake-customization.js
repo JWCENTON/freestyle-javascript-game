@@ -3,7 +3,6 @@ const container = document.querySelector(".game-container");
 
 let snakeColor = "";
 let snakeShape = "";
-let snakeBorder = "";
 let borderColor = "";
 
 const deleteButtons = function () {
@@ -34,9 +33,8 @@ const buttons = (function () {
 })();
 
 
-const startGame = function (event) {
-  category.textContent = "";
-  const chosenButton = event.target;
+const startGame = function (chosenButton) {
+  category.textContent = "Actual game";
   snakeShape = chosenButton.style.borderRadius;
 
 
@@ -45,56 +43,89 @@ const startGame = function (event) {
   }
 }
 
-const chooseSnakeShape = function (event) {
+const chooseSnakeShape = function (chosenButton) {
   category.textContent = "Choose snake shape";
 
-  const chosenButton = event.target;
-  snakeBorder = chosenButton.style.borderStyle;
-
-  for (let i = 0; i < buttons.length; i++) {
-    buttons[i].style.borderStyle = snakeBorder;
-    buttons[i].style.borderRadius = `${6.5 * i}%`
-    buttons[i].onclick = startGame;
-  }
-}
-
-const chooseBorderStyle = function (event) {
-  category.textContent = "Choose border style";
-
-  const chosenButton = event.target;
   borderColor = chosenButton.style.borderColor;
-
-  const borderStyles = [
-    "hidden",
-    "dotted",
-    "dashed",
-    "solid",
-    "double",
-    "dotted solid",
-    "dotted dashed",
-    "double solid",
-    "solid double",
-  ];
 
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].style.borderColor = borderColor;
-    buttons[i].style.borderStyle = borderStyles[i];
-    buttons[i].onclick = chooseSnakeShape;
-  }
-};
+    buttons[i].animate([
+      {borderRadius: `${6.5 * i}%`}
+    ], 500)
+    setTimeout(() => {
+      buttons[i].style.borderRadius =  `${6.5 * i}%`
+    }, 500);
 
-const chooseBorderColor = function (event) {
+    buttons[i].onclick = () => {
+      buttons.forEach(button => {
+        button.onclick = null;
+        button.animate([
+          {borderRadius: buttons[i].style.borderRadius}
+        ], 500)
+      });
+      setTimeout(() => {
+        startGame(buttons[i]);
+      }, 500);
+    }
+
+  }
+}
+
+// const chooseBorderStyle = function (chosenButton) {
+//   category.textContent = "Choose border style";
+//
+//   borderColor = chosenButton.style.borderColor;
+//
+//   const borderStyles = [
+//     "hidden",
+//     "dotted",
+//     "dashed",
+//     "solid",
+//     "double",
+//     "dotted solid",
+//     "dotted dashed",
+//     "double solid",
+//     "solid double",
+//   ];
+//
+//   for (let i = 0; i < buttons.length; i++) {
+//     buttons[i].style.borderColor = borderColor;
+//     buttons[i].style.borderStyle = borderStyles[i];
+//     buttons[i].onclick = chooseSnakeShape;
+//   }
+// };
+
+const chooseBorderColor = function (chosenButton) {
   category.textContent = "Choose border color";
 
-  const chosenButton = event.target;
   snakeColor = chosenButton.style.backgroundColor;
 
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].style.backgroundColor = snakeColor;
     buttons[i].style.borderStyle = "solid";
-    buttons[i].style.borderColor = `rgb(${i * 28}, ${i * 28}, ${i * 28})`;
-    buttons[i].onclick = chooseBorderStyle;
+    buttons[i].style.borderColor = "transparent";
+    buttons[i].animate([
+      {borderColor: i===0 ? "transparent" : `rgb(${i * 28}, ${i * 28}, ${i * 28})`}
+    ], 500)
+    setTimeout(() => {
+      buttons[i].style.borderColor = i===0 ? "transparent" : `rgb(${i * 28}, ${i * 28}, ${i * 28})`;
+    }, 500);
+
+    buttons[i].onclick = () => {
+      buttons.forEach(button => {
+        button.onclick = null;
+        button.animate([
+          {borderColor: buttons[i].style.borderColor}
+        ], 500)
+      });
+      setTimeout(() => {
+        chooseSnakeShape(buttons[i]);
+      }, 500);
+    }
+
   }
+
 };
 
 (function chooseSnakeColor() {
@@ -112,6 +143,16 @@ const chooseBorderColor = function (event) {
   category.textContent = "Choose snake color";
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].style.backgroundColor = colors[i];
-    buttons[i].onclick = chooseBorderColor;
+    buttons[i].onclick = () => {
+      buttons.forEach(button => {
+        button.onclick = null;
+        button.animate([
+          {backgroundColor: buttons[i].style.backgroundColor}
+        ], 500)
+      });
+      setTimeout(() => {
+        chooseBorderColor(buttons[i]);
+      }, 500);
+    }
   }
 })();
