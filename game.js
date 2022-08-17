@@ -27,7 +27,8 @@ function getRandomApplePosition() {
 }
 
 /** direction: R, L, U, D */
-let direction = "D";
+let direction = 'R';
+
 let snakePosition = [
   { x: 4, y: 1 },
   { x: 3, y: 1 },
@@ -35,10 +36,36 @@ let snakePosition = [
 ];
 
 function getDirection() {
+    return direction
+}
+function getDirection() {
   return direction;
 }
 
 function updatePosition() {
+    const last_x = snakePosition[snakePosition.length - 1].x;
+    const last_y = snakePosition[snakePosition.length - 1].y;
+    const direction = getDirection();
+    console.log("Direction: " + direction);
+    for (let index = snakePosition.length - 1; index > 0; index--) {
+        snakePosition[index].x = snakePosition[index - 1].x;
+        snakePosition[index].y = snakePosition[index - 1].y;
+    }
+    switch (direction) {
+        case "R":
+            snakePosition[0].x++;
+            break;
+        case "L":
+            snakePosition[0].x--;
+            break;
+        case "U":
+            snakePosition[0].y--;
+            break;
+        case "D":
+            snakePosition[0].y++;
+            break;
+    }
+    /* if snakePosition[0] enters apple then add new snake segment (last_x, last_y) */
   const last_x = snakePosition[snakePosition.length - 1].x;
   const last_y = snakePosition[snakePosition.length - 1].y;
   const direction = getDirection();
@@ -129,6 +156,26 @@ function serveDirection() {
   });
 }
 
+function serveDirection() {
+    window.addEventListener('keydown', event => {
+        switch (event.key) {
+            case 'ArrowUp':
+                direction = "U"
+                break
+            case 'ArrowDown':
+                direction = "D"
+                break
+            case 'ArrowLeft':
+                direction = "L"
+                break
+            case 'ArrowRight':
+                direction = "R"
+                break
+        }
+    })
+}
+
+initGame();
 function snakeSpeedAndMove() {
   if (snakePosition.length >= 3) {
     setInterval(moveSnake, 500);
@@ -150,6 +197,10 @@ function clickToStartGame() {
 clickToStartGame();
 
 function initGame() {
+    // Your game can start here, but define separate functions, don't write everything in here :)
+    serveDirection();
+    drawApple();
+    setInterval(moveSnake, 1000);
   // Your game can start here, but define separate functions, don't write everything in here :)
   serveDirection();
   drawApple();
