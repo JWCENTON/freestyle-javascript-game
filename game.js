@@ -9,26 +9,11 @@ function drawApple() {
     gameBoard.appendChild(appleElement);
 }
 
-
-
-
-// let snakeElement = document.getElementById("snake-element");
-// console.log(snakeElement);
-// let snakeElementStyles = getComputedStyle(snakeElement);
-// console.log(snakeElementStyles)
-// let gridColumnStart = snakeElementStyles.getPropertyValue("grid-column-start");
-// console.log(gridColumnStart)
-
 /** direction: R, L, U, D */
 let direction = 'R';
 let snakePosition = { x: 1, y: 1};
 
 function moveSnake() {
-    // let snakeElementStyles = getComputedStyle(snakeElement);
-    // let root = document.querySelector(':root');
-    // let rootStyles = getComputedStyle(root);
-    // var xposition = parseInt(rootStyles.getPropertyValue('--xposition'));
-    // var yposition = parseInt(rootStyles.getPropertyValue('--yposition'));
     let snakeElement = document.getElementById('snake');
     if (snakeElement === null) {
         snakeElement = document.createElement('div');
@@ -57,9 +42,6 @@ function moveSnake() {
         snakeElement.style.gridColumnStart = snakePosition.x;
     }
 }
-    // root.style.setProperty('--xposition', xposition.toString());
-    // root.style.setProperty('--yposition', yposition.toString());
-
 
 
 initGame();
