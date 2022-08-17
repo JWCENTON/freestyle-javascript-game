@@ -55,7 +55,7 @@ const chooseSnakeShape = function (chosenButton) {
     ], 500)
     setTimeout(() => {
       buttons[i].style.borderRadius =  `${6.5 * i}%`
-    }, 500);
+    }, 450);
 
     buttons[i].onclick = () => {
       buttons.forEach(button => {
@@ -66,7 +66,7 @@ const chooseSnakeShape = function (chosenButton) {
       });
       setTimeout(() => {
         startGame(buttons[i]);
-      }, 500);
+      }, 450);
     }
 
   }
@@ -110,7 +110,7 @@ const chooseBorderColor = function (chosenButton) {
     ], 500)
     setTimeout(() => {
       buttons[i].style.borderColor = i===0 ? "transparent" : `rgb(${i * 28}, ${i * 28}, ${i * 28})`;
-    }, 500);
+    }, 450);
 
     buttons[i].onclick = () => {
       buttons.forEach(button => {
@@ -121,7 +121,7 @@ const chooseBorderColor = function (chosenButton) {
       });
       setTimeout(() => {
         chooseSnakeShape(buttons[i]);
-      }, 500);
+      }, 450);
     }
 
   }
@@ -152,7 +152,7 @@ const chooseBorderColor = function (chosenButton) {
       });
       setTimeout(() => {
         chooseBorderColor(buttons[i]);
-      }, 500);
+      }, 450);
     }
   }
 })();
