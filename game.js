@@ -7,7 +7,7 @@ function drawApple() {
     appleElement.classList.add('apple', 'item');
     let gameBoard = document.querySelector('.game-container');
     gameBoard.appendChild(appleElement);
-}
+};
 
 function randomGridPosition() {
     let gameBoardSize = 20
@@ -15,18 +15,19 @@ function randomGridPosition() {
       x: Math.floor(Math.random() * gameBoardSize) + 1, // random number from 1 to 20
       y: Math.floor(Math.random() * gameBoardSize) + 1, // random number from 1 to 20
     };
-}
+};
 
 function getRandomApplePosition () {
     let newApplePosition;
     while (newApplePosition == null /* || snake_position */) {
         newApplePosition = randomGridPosition()
-    }
+    };
     return newApplePosition;
-}
+};
 
 /** direction: R, L, U, D */
-let direction = 'D';
+let direction = 'R';
+
 let snakePosition = [
     {x: 4, y: 1},
     {x: 3, y: 1},
