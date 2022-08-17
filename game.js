@@ -38,7 +38,6 @@ function getDirection() {
     return direction
 }
 
-
 function updatePosition() {
     const last_x = snakePosition[snakePosition.length - 1].x;
     const last_y = snakePosition[snakePosition.length - 1].y;
@@ -123,7 +122,6 @@ function moveSnake() {
       snakeElement.id = "snake" + i.toString();
       gameBoard.appendChild(snakeElement);
       console.log(`${snakeElement.id} - ${snakeElement.classList}`);
-
     // if (snakePosition[0].x <= 20 || snakePosition[0].x >= 1 || snakePosition[0].y >= 1 || snakePosition[0].x <= 20)
         const direction = getDirection();
         console.log("Direction: " + direction);
