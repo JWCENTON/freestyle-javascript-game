@@ -30,17 +30,19 @@ body {
   margin-bottom: 10rem;
 }
 
-:root {
-  --xposition: 3;
-  --yposition: 0;
-}
+/*:root {*/
+/*  --xposition: 3;*/
+/*  --yposition: 0;*/
+/*}*/
 
 .snake-element {
   background-color: #529e80;
   border-radius: 6px;
   margin: 2px;
-  grid-column-start: var(--xposition);
-  grid-row-start: var(--yposition);
+  /*grid-column-start: var(--xposition);*/
+  /*grid-row-start: var(--yposition);*/
+  grid-column-start: 1;
+  grid-row-start: 1;
 }
 
 
