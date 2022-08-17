@@ -81,12 +81,24 @@ function moveSnake() {
     }
 }
 
-initGame();
+let startButton = document.getElementById("start-game");
+function clickToStartGame () {
+    startButton.addEventListener('click', event => {
+        console.log(startButton);
+        initGame();
+    });
+}
+
+
+clickToStartGame();
 
 function initGame() {
-    // Your game can start here, but define separate functions, don't write everything in here :)
+    startButton.style.visibility='hidden';
     drawApple();
     setInterval(moveSnake, 1000);
+
+    // Your game can start here, but define separate functions, don't write everything in here :)
+
 }
 
 
