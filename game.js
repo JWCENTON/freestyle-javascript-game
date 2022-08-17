@@ -49,15 +49,19 @@ function updatePosition() {
   }
   switch (direction) {
     case "R":
+      if (snakePosition[0].x == 21) snakePosition[0].x = 0;
       snakePosition[0].x++;
       break;
     case "L":
+      if (snakePosition[0].x == 0) snakePosition[0].x = 21;
       snakePosition[0].x--;
       break;
     case "U":
+      if (snakePosition[0].y == 0) snakePosition[0].y = 21;
       snakePosition[0].y--;
       break;
     case "D":
+      if (snakePosition[0].y == 21) snakePosition[0].y = 0;
       snakePosition[0].y++;
       break;
   }
