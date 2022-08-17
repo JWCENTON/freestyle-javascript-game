@@ -41,7 +41,7 @@ body {
   margin: 2px;
   /*grid-column-start: var(--xposition);*/
   /*grid-row-start: var(--yposition);*/
-  grid-column-start: 1;
+  grid-column-start: 4;
   grid-row-start: 1;
 }
 
