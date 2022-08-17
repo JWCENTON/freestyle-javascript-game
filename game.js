@@ -105,7 +105,6 @@ function serveDirection() {
     })
 }
 
-initGame();
 let startButton = document.getElementById("start-game");
 function clickToStartGame () {
     startButton.addEventListener('click', e=> {
@@ -120,7 +119,6 @@ clickToStartGame();
 function initGame() {
     // Your game can start here, but define separate functions, don't write everything in here :)
     serveDirection();
-    startButton.style.visibility='hidden';
 
     drawApple();
     setInterval(moveSnake, 1000);
