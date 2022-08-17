@@ -106,24 +106,31 @@ function serveDirection() {
     })
 }
 
-initGame();
+function snakeSpeedAndMove() {
+    if (snakePosition.length >= 3) {
+        setInterval(moveSnake, 500);
+    } else if (snakePosition.length >= 10) {
+        setInterval(moveSnake, 250);
+    } else {
+        setInterval(moveSnake, 1000);
+    };
+};
+
 let startButton = document.getElementById("start-game");
 function clickToStartGame () {
-    startButton.addEventListener('click', event => {
-        console.log(startButton);
+    startButton.addEventListener('click', e=> {
+        e.currentTarget.style.visibility='hidden';
         initGame();
     });
-}
-
+};
 
 clickToStartGame();
 
 function initGame() {
     // Your game can start here, but define separate functions, don't write everything in here :)
     serveDirection();
-    startButton.style.visibility='hidden';
     drawApple();
-    setInterval(moveSnake, 1000);
+    snakeSpeedAndMove();
 }
 
 
