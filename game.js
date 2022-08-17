@@ -25,13 +25,6 @@ function getRandomApplePosition () {
     return newApplePosition;
 };
 
-initGame();
-
-function initGame() {
-    // Your game can start here, but define separate functions, don't write everything in here :)
-    drawApple()
-}
-
 /** direction: R, L, U, D */
 let direction = 'R';
 let snakePosition = { x: 1, y: 1};
