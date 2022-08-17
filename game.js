@@ -19,7 +19,7 @@ function randomGridPosition() {
 
 function getRandomApplePosition () {
     let newApplePosition;
-    while (newApplePosition == null) {
+    while (newApplePosition == null /* || snake_position */) {
         newApplePosition = randomGridPosition()
     };
     return newApplePosition;
