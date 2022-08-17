@@ -11,49 +11,37 @@ function drawApple() {
 }
 
 function randomGridPosition() {
-  let gameBoardSize = 20;
-  return {
-    x: Math.floor(Math.random() * gameBoardSize) + 1, // random number from 1 to 20
-    y: Math.floor(Math.random() * gameBoardSize) + 1, // random number from 1 to 20
-  };
-}
+    let gameBoardSize = 20
+    return {
+      x: Math.floor(Math.random() * gameBoardSize) + 1, // random number from 1 to 20
+      y: Math.floor(Math.random() * gameBoardSize) + 1, // random number from 1 to 20
+    };
+};
 
-function getRandomApplePosition() {
-  let newApplePosition;
-  while (newApplePosition == null /* || snake_position */) {
-    newApplePosition = randomGridPosition();
-  }
-  return newApplePosition;
-}
+function getRandomApplePosition () {
+    let newApplePosition;
+    while (newApplePosition == null /* || snake_position */) {
+        newApplePosition = randomGridPosition()
+    };
+    return newApplePosition;
+};
 
 /** direction: R, L, U, D */
-let direction = 'R';
-
+let direction = 'D';
 let snakePosition = [
-<<<<<<< HEAD
-  { x: 4, y: 1 },
-  { x: 3, y: 1 },
-  { x: 2, y: 1 },
-=======
-    {x: 6, y: 1},
-    {x: 5, y: 1},
     {x: 4, y: 1},
     {x: 3, y: 1},
-    {x: 2, y: 1},
->>>>>>> f5ed60a (add move restriction)
+    {x: 2, y: 1}
 ];
 
 function getDirection() {
     return direction
 }
-function getDirection() {
-  return direction;
-}
+
 
 function updatePosition() {
     const last_x = snakePosition[snakePosition.length - 1].x;
     const last_y = snakePosition[snakePosition.length - 1].y;
-<<<<<<< HEAD
     const direction = getDirection();
     console.log("Direction: " + direction);
     for (let index = snakePosition.length - 1; index > 0; index--) {
@@ -163,7 +151,6 @@ function moveSnake() {
 
 function moveSnake() {
     let snakeElement = document.getElementById('snake0');
-    console.log(snakeElement);
     if (snakeElement === null) {
         let gameBoard = document.querySelector('.game-container');
         for (let i = 0; i < snakePosition.length; i++) {
@@ -174,8 +161,7 @@ function moveSnake() {
             snakeElement.id = "snake" + i.toString();
             gameBoard.appendChild(snakeElement);
         }
-    }
-    else {
+    } else {
         updatePosition();
         for (let i = 0; i < snakePosition.length; i++) {
             snakeElement = document.getElementById("snake" + i.toString())
@@ -183,16 +169,7 @@ function moveSnake() {
             snakeElement.style.gridColumnStart = snakePosition[i].x;
         }
 
->>>>>>> f5ed60a (add move restriction)
     }
-  } else {
-    updatePosition();
-    for (let i = 0; i < snakePosition.length; i++) {
-      snakeElement = document.getElementById("snake" + i.toString());
-      snakeElement.style.gridRowStart = snakePosition[i].y;
-      snakeElement.style.gridColumnStart = snakePosition[i].x;
-    }
-  }
 }
 
 function serveDirection() {
@@ -263,10 +240,6 @@ function initGame() {
     serveDirection();
     drawApple();
     setInterval(moveSnake, 1000);
-  // Your game can start here, but define separate functions, don't write everything in here :)
-  serveDirection();
-  drawApple();
-  snakeSpeedAndMove();
 }
 
 function createSnake() {
