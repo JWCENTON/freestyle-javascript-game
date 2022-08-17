@@ -114,15 +114,19 @@ function serveDirection() {
   window.addEventListener("keydown", (event) => {
     switch (event.key) {
       case "ArrowUp":
+        if (direction === "D") break;
         direction = "U";
         break;
       case "ArrowDown":
+        if (direction === "U") break;
         direction = "D";
         break;
       case "ArrowLeft":
+        if (direction === "R") break;
         direction = "L";
         break;
       case "ArrowRight":
+        if (direction === "L") break;
         direction = "R";
         break;
     }
