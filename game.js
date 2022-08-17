@@ -83,8 +83,8 @@ function moveSnake() {
 
 let startButton = document.getElementById("start-game");
 function clickToStartGame () {
-    startButton.addEventListener('click', event => {
-        console.log(startButton);
+    startButton.addEventListener('click', e=> {
+        e.currentTarget.style.visibility='hidden';
         initGame();
     });
 }
@@ -93,7 +93,7 @@ function clickToStartGame () {
 clickToStartGame();
 
 function initGame() {
-    startButton.style.visibility='hidden';
+
     drawApple();
     setInterval(moveSnake, 1000);
 
