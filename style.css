@@ -44,11 +44,11 @@ body {
 }
 
 
-/*.item {*/
-/*  position: relative;*/
-/*  border-radius: 6px;*/
-/*  margin: 2px;*/
-/*}*/
+.item {
+  position: relative;
+  border-radius: 6px;
+  margin: 2px;
+}
 
 /*.snake, .snake-head {*/
 /*  background-color: #529e80;*/
