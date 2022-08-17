@@ -1,11 +1,12 @@
 let applePosition = getRandomApplePosition(); // { x: 10, y: 10 };
+const gameBoard = document.querySelector(".game-container");
+customizeSnake();
 
 function drawApple() {
     const appleElement = document.createElement('div');
     appleElement.style.gridRowStart = applePosition.y;
     appleElement.style.gridColumnStart = applePosition.x;
     appleElement.classList.add('apple', 'item');
-    let gameBoard = document.querySelector('.game-container');
     gameBoard.appendChild(appleElement);
 }
 
@@ -132,5 +133,181 @@ function initGame() {
     snakeSpeedAndMove();
 }
 
+function createSnake() {
+  const snake = [];
+  for (let i = 0; i < 3; i++) {
+    const div = document.createElement("div");
+    div.classList.add("item", "snake");
+    div.style.gridColumnStart = 8;
+    div.style.gridRowStart = i + 7;
+    snake.push(div);
+  }
 
+  snake[0].classList.remove("snake");
+  snake[0].classList.add("snake-head");
 
+  snake.forEach((s) => {
+    gameBoard.insertAdjacentElement("afterbegin", s);
+  });
+}
+
+function customizeSnake() {
+  let snakeColor = "";
+  let snakeShape = "";
+  let borderColor = "";
+  const category = document.querySelector(".category-header");
+
+  const deleteButtons = function () {
+    const buttons = Array.from(document.querySelectorAll("button"));
+    buttons.forEach((element) => {
+      element.remove();
+    });
+  };
+
+  const buttons = (function () {
+    let x = 3;
+    let y = 2;
+    for (let i = 0; i < 9; ++i) {
+      const button = document.createElement("button");
+      button.classList.add("color-element");
+      button.style.gridColumn = `${x} / ${x + 4}`;
+      button.style.gridRow = `${y} / ${y + 4}`;
+      gameBoard.insertAdjacentElement("beforeend", button);
+
+      x += 6;
+
+      if (x == 21) {
+        x = 3;
+        y += 6;
+      }
+    }
+    return Array.from(document.querySelectorAll("button"));
+  })();
+
+  const startGame = function (chosenButton) {
+    snakeShape = chosenButton.style.borderRadius;
+    category.remove();
+    deleteButtons();
+    document.body.style.setProperty("--snakeColor", snakeColor);
+    document.body.style.setProperty("--snakeShape", snakeShape);
+    document.body.style.setProperty("--snakeBorderColor", borderColor);
+    initGame();
+  };
+
+  const chooseSnakeShape = function (chosenButton) {
+    category.textContent = "Choose snake shape";
+
+    borderColor = chosenButton.style.borderColor;
+
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].style.borderColor = borderColor;
+      buttons[i].animate([{ borderRadius: `${6.5 * i}%` }], 500);
+      setTimeout(() => {
+        buttons[i].style.borderRadius = `${6.5 * i}%`;
+      }, 450);
+
+      buttons[i].onclick = () => {
+        buttons.forEach((button) => {
+          button.onclick = null;
+          button.animate(
+            [{ borderRadius: buttons[i].style.borderRadius }],
+            500
+          );
+        });
+        setTimeout(() => {
+          startGame(buttons[i]);
+        }, 450);
+      };
+    }
+  };
+
+  // const chooseBorderStyle = function (chosenButton) {
+  //   category.textContent = "Choose border style";
+  //
+  //   borderColor = chosenButton.style.borderColor;
+  //
+  //   const borderStyles = [
+  //     "hidden",
+  //     "dotted",
+  //     "dashed",
+  //     "solid",
+  //     "double",
+  //     "dotted solid",
+  //     "dotted dashed",
+  //     "double solid",
+  //     "solid double",
+  //   ];
+  //
+  //   for (let i = 0; i < buttons.length; i++) {
+  //     buttons[i].style.borderColor = borderColor;
+  //     buttons[i].style.borderStyle = borderStyles[i];
+  //     buttons[i].onclick = chooseSnakeShape;
+  //   }
+  // };
+
+  const chooseBorderColor = function (chosenButton) {
+    category.textContent = "Choose border color";
+
+    snakeColor = chosenButton.style.backgroundColor;
+
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].style.backgroundColor = snakeColor;
+      buttons[i].style.borderStyle = "solid";
+      buttons[i].style.borderColor = "transparent";
+
+      const borderColor = i === 1 ? "transparent" : `rgb(${i * 28}, ${i * 28}, ${i * 28})`;
+
+      buttons[i].animate(
+        [
+          {
+            borderColor: borderColor,
+          },
+        ],
+        500
+      );
+      setTimeout(() => {
+        buttons[i].style.borderColor = borderColor;
+      }, 450);
+
+      buttons[i].onclick = () => {
+        buttons.forEach((button) => {
+          button.onclick = null;
+          button.animate([{ borderColor: buttons[i].style.borderColor }], 500);
+        });
+        setTimeout(() => {
+          chooseSnakeShape(buttons[i]);
+        }, 450);
+      };
+    }
+  };
+
+  (function chooseSnakeColor() {
+    const colors = [
+      "#ef476f",
+      "#ffd166",
+      "#06d6a0",
+      "#118ab2",
+      "#073b4c",
+      "#c19ab7",
+      "#9c95dc",
+      "#dcc48e",
+      "#605b56",
+    ];
+    category.textContent = "Choose snake color";
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].style.backgroundColor = colors[i];
+      buttons[i].onclick = () => {
+        buttons.forEach((button) => {
+          button.onclick = null;
+          button.animate(
+            [{ backgroundColor: buttons[i].style.backgroundColor }],
+            500
+          );
+        });
+        setTimeout(() => {
+          chooseBorderColor(buttons[i]);
+        }, 450);
+      };
+    }
+  })();
+}
