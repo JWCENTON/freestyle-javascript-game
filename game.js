@@ -7,7 +7,7 @@ function drawApple() {
     appleElement.classList.add('apple', 'item');
     let gameBoard = document.querySelector('.game-container');
     gameBoard.appendChild(appleElement);
-};
+}
 
 function randomGridPosition() {
     let gameBoardSize = 20
@@ -15,28 +15,34 @@ function randomGridPosition() {
       x: Math.floor(Math.random() * gameBoardSize) + 1, // random number from 1 to 20
       y: Math.floor(Math.random() * gameBoardSize) + 1, // random number from 1 to 20
     };
-};
+}
 
 function getRandomApplePosition () {
     let newApplePosition;
     while (newApplePosition == null /* || snake_position */) {
         newApplePosition = randomGridPosition()
-    };
+    }
     return newApplePosition;
-};
+}
 
 /** direction: R, L, U, D */
-let direction = 'D';
+let direction = 'R';
+
 let snakePosition = [
     {x: 4, y: 1},
     {x: 3, y: 1},
     {x: 2, y: 1}
 ];
 
+function getDirection() {
+    return direction
+}
 
 function updatePosition() {
     const last_x = snakePosition[snakePosition.length - 1].x;
     const last_y = snakePosition[snakePosition.length - 1].y;
+    const direction = getDirection();
+    console.log("Direction: " + direction);
     for (let index = snakePosition.length - 1; index > 0; index--) {
         snakePosition[index].x = snakePosition[index - 1].x;
         snakePosition[index].y = snakePosition[index - 1].y;
@@ -81,10 +87,30 @@ function moveSnake() {
     }
 }
 
+function serveDirection() {
+    window.addEventListener('keydown', event => {
+        switch (event.key) {
+            case 'ArrowUp':
+                direction = "U"
+                break
+            case 'ArrowDown':
+                direction = "D"
+                break
+            case 'ArrowLeft':
+                direction = "L"
+                break
+            case 'ArrowRight':
+                direction = "R"
+                break
+        }
+    })
+}
+
 initGame();
 
 function initGame() {
     // Your game can start here, but define separate functions, don't write everything in here :)
+    serveDirection();
     drawApple();
     setInterval(moveSnake, 1000);
 }
