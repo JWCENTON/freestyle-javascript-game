@@ -29,9 +29,11 @@ function getRandomApplePosition () {
 let direction = 'R';
 
 let snakePosition = [
+    {x: 6, y: 1},
+    {x: 5, y: 1},
     {x: 4, y: 1},
     {x: 3, y: 1},
-    {x: 2, y: 1}
+    {x: 2, y: 1},
 ];
 
 function getDirection() {
@@ -41,31 +43,34 @@ function getDirection() {
 function updatePosition() {
     const last_x = snakePosition[snakePosition.length - 1].x;
     const last_y = snakePosition[snakePosition.length - 1].y;
-    const direction = getDirection();
-    console.log("Direction: " + direction);
-    for (let index = snakePosition.length - 1; index > 0; index--) {
-        snakePosition[index].x = snakePosition[index - 1].x;
-        snakePosition[index].y = snakePosition[index - 1].y;
-    }
-    switch (direction) {
-        case "R":
-            snakePosition[0].x++;
-            break;
-        case "L":
-            snakePosition[0].x--;
-            break;
-        case "U":
-            snakePosition[0].y--;
-            break;
-        case "D":
-            snakePosition[0].y++;
-            break;
-    }
-    /* if snakePosition[0] enters apple then add new snake segment (last_x, last_y) */
+    // if (snakePosition[0].x <= 20 || snakePosition[0].x >= 1 || snakePosition[0].y >= 1 || snakePosition[0].x <= 20)
+        const direction = getDirection();
+        console.log("Direction: " + direction);
+        for (let index = snakePosition.length - 1; index > 0; index--) {
+            snakePosition[index].x = snakePosition[index - 1].x;
+            snakePosition[index].y = snakePosition[index - 1].y;
+        }
+        switch (direction) {
+            case "R":
+                snakePosition[0].x++;
+                break;
+            case "L":
+                snakePosition[0].x--;
+                break;
+            case "U":
+                snakePosition[0].y--;
+                break;
+            case "D":
+                snakePosition[0].y++;
+                break;
+        }
+        /* if snakePosition[0] enters apple then add new snake segment (last_x, last_y) */
+
 }
 
 function moveSnake() {
     let snakeElement = document.getElementById('snake0');
+    console.log(snakeElement);
     if (snakeElement === null) {
         let gameBoard = document.querySelector('.game-container');
         for (let i = 0; i < snakePosition.length; i++) {
@@ -76,7 +81,8 @@ function moveSnake() {
             snakeElement.id = "snake" + i.toString();
             gameBoard.appendChild(snakeElement);
         }
-    } else {
+    }
+    else {
         updatePosition();
         for (let i = 0; i < snakePosition.length; i++) {
             snakeElement = document.getElementById("snake" + i.toString())
@@ -91,16 +97,20 @@ function serveDirection() {
     window.addEventListener('keydown', event => {
         switch (event.key) {
             case 'ArrowUp':
-                direction = "U"
+                if (direction === "D") break;
+                direction = "U";
                 break
             case 'ArrowDown':
-                direction = "D"
+                if (direction === "U") break;
+                direction = "D";
                 break
             case 'ArrowLeft':
-                direction = "L"
+                if (direction === "R") break;
+                direction = "L";
                 break
             case 'ArrowRight':
-                direction = "R"
+                if (direction === "L") break;
+                direction = "R";
                 break
         }
     })
