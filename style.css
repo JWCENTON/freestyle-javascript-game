@@ -13,6 +13,8 @@ body {
   display: block;
   background: #646464;
   height: inherit;
+  padding-left: 5em;
+  padding-right: 5em;
 }
 
 .game-container {
