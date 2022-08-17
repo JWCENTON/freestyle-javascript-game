@@ -37,15 +37,6 @@ body {
 /*  --yposition: 0;*/
 /*}*/
 
-.snake-element {
-  background-color: #529e80;
-  border-radius: 6px;
-  margin: 2px;
-  /*grid-column-start: var(--xposition);*/
-  /*grid-row-start: var(--yposition);*/
-  grid-column-start: 4;
-  grid-row-start: 1;
-}
 
 .item {
   position: relative;
