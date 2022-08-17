@@ -123,7 +123,7 @@ function moveSnake() {
       snakeElement.id = "snake" + i.toString();
       gameBoard.appendChild(snakeElement);
       console.log(`${snakeElement.id} - ${snakeElement.classList}`);
-=======
+
     // if (snakePosition[0].x <= 20 || snakePosition[0].x >= 1 || snakePosition[0].y >= 1 || snakePosition[0].x <= 20)
         const direction = getDirection();
         console.log("Direction: " + direction);
@@ -172,24 +172,7 @@ function moveSnake() {
     }
 }
 
-function serveDirection() {
-  window.addEventListener("keydown", (event) => {
-    switch (event.key) {
-      case "ArrowUp":
-        direction = "U";
-        break;
-      case "ArrowDown":
-        direction = "D";
-        break;
-      case "ArrowLeft":
-        direction = "L";
-        break;
-      case "ArrowRight":
-        direction = "R";
-        break;
-    }
-  });
-}
+
 
 function serveDirection() {
     window.addEventListener('keydown', event => {
@@ -214,24 +197,23 @@ function serveDirection() {
     })
 }
 
-initGame();
 function snakeSpeedAndMove() {
-  if (snakePosition.length >= 3) {
-    setInterval(moveSnake, 500);
-  } else if (snakePosition.length >= 10) {
-    setInterval(moveSnake, 250);
-  } else {
-    setInterval(moveSnake, 1000);
-  }
-}
+    if (snakePosition.length >= 3) {
+        setInterval(moveSnake, 500);
+    } else if (snakePosition.length >= 10) {
+        setInterval(moveSnake, 250);
+    } else {
+        setInterval(moveSnake, 1000);
+    };
+};
 
 let startButton = document.getElementById("start-game");
-function clickToStartGame() {
-  startButton.addEventListener("click", (e) => {
-    e.currentTarget.style.visibility = "hidden";
-    initGame();
-  });
-}
+function clickToStartGame () {
+    startButton.addEventListener('click', e=> {
+        e.currentTarget.style.visibility='hidden';
+        initGame();
+    });
+};
 
 clickToStartGame();
 
