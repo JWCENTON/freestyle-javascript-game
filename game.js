@@ -35,7 +35,7 @@ function moveSnake() {
                 snakePosition.y--;
                 break;
             case "D":
-                snakePosition.x++;
+                snakePosition.y++;
                 break;
         }
         snakeElement.style.gridRowStart = snakePosition.y
