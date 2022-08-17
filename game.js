@@ -11,13 +11,11 @@ function drawApple() {
 
 
 initGame();
-// initGame();
-//
-// function initGame() {
-//
-//     // Your game can start here, but define separate functions, don't write everything in here :)
-//
-// }
+
+function initGame() {
+    // Your game can start here, but define separate functions, don't write everything in here :)
+    drawApple()
+}
 
 let snakeElement = document.getElementById("snake-element");
 console.log(snakeElement);
@@ -29,9 +27,6 @@ console.log(gridColumnStart)
 /** direction: R, L, U, D */
 let direction = 'R';
 
-    // Your game can start here, but define separate functions, don't write everything in here :)
-
-    drawApple();
 
 function moveSnake() {
     let snakeElementStyles = getComputedStyle(snakeElement);

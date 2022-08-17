@@ -82,17 +82,17 @@ body {
 
 
 
-/*.apple {*/
-/*  background-color: #e40b0b;*/
-/*}*/
+.apple {
+  background-color: #e40b0b;
+}
 
-/*.apple::after {*/
-/*  position: absolute;*/
-/*  right: 0px;*/
-/*  content: "";*/
-/*  width: 50%;*/
-/*  height: 50%;*/
-/*  border-radius: 50% 0% 50% 0%;*/
-/*  background-color: #48cb2f;*/
-/*  transform: translateY(-100%);*/
-/*}*/
+.apple::after {
+  position: absolute;
+  right: 0px;
+  content: "";
+  width: 50%;
+  height: 50%;
+  border-radius: 50% 0% 50% 0%;
+  background-color: #48cb2f;
+  transform: translateY(-100%);
+}
