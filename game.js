@@ -23,7 +23,9 @@ function getRandomApplePosition() {
   while (newApplePosition == null /*|| whereSnakeIs(newApplePosition)*/) {
     newApplePosition = randomGridPosition();
   }
+
   return newApplePosition;
+
 }
 
 function whereSnakeIs(newApplePosition) {
@@ -123,9 +125,17 @@ function moveSnake() {
         snakeElement.style.gridColumnStart = snakePosition[i].x;
       }
     } else {
-      clearInterval(interval);
-      console.log("End game")
-      alert("You lose. Referesh page to play again");
+
+      if (updatePosition()) {
+            for (let i = 0; i < snakePosition.length; i++) {
+                snakeElement = document.getElementById("snake" + i.toString());
+                snakeElement.style.gridRowStart = snakePosition[i].y;
+                snakeElement.style.gridColumnStart = snakePosition[i].x;
+            }
+        } else {
+            clearInterval(interval);
+            console.log("End game");
+        }
     }
   }
 }
