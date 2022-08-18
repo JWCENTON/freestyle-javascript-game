@@ -24,8 +24,10 @@ function drawApple() {
 }
 
 function endGame(text) {
+    document.querySelector(".category-header").classList.remove('hidden');
     const header = document.querySelector('.category-header');
-    header.classList.remove("hidden");
+    console.log(header);
+    // header.classList.remove("hidden");
     header.classList.add("game-over-text");
     header.textContent = text;
 
@@ -182,8 +184,9 @@ function moveSnake() {
             }
         } else {
             clearInterval(interval);
+            endGame("Game Over");
             console.log("End game");
-            endGame("Game-Over");
+
         }
     }
 }
