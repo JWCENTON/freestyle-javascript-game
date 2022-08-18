@@ -98,33 +98,34 @@ function moveSnake() {
             snakeElement = document.createElement("div");
             snakeElement.style.gridRowStart = snakePosition[i].y;
             snakeElement.style.gridColumnStart = snakePosition[i].x;
+            snakeElement.id = "snake" + i.toString();
             if (i === 0) {
                 snakeElement.classList.add("snake-head", "item");
+                const snakeHead = snakeElement;
+                snakeHead.classList.add("snake-head", "item");
                 window.addEventListener("keydown", (event) => {
                     switch (event.key) {
-                        case "ArrowUp":
-                            snakeElement.classList.remove("rotate-left", "rotate-right", "rotate-bottom");
-                            break;
-                        case "ArrowDown":
-                            snakeElement.classList.remove("rotate-left", "rotate-right");
-                            snakeElement.classList.add("rotate-bottom");
-                            break;
-                        case "ArrowLeft":
-                            snakeElement.classList.remove("rotate-right", "rotate-bottom");
-                            snakeElement.classList.add("rotate-left");
-                            break;
-                        case "ArrowRight":
-                            snakeElement.classList.remove("rotate-left", "rotate-bottom");
-                            snakeElement.classList.add("rotate-right");
-                            break;
-                    }
-                });
+            case "ArrowUp":
+              snakeHead.classList.remove("rotate-left", "rotate-right", "rotate-bottom");
+              break;
+            case "ArrowDown":
+              snakeHead.classList.remove("rotate-left", "rotate-right");
+              snakeHead.classList.add("rotate-bottom");
+              break;
+            case "ArrowLeft":
+              snakeHead.classList.remove("rotate-right", "rotate-bottom");
+              snakeHead.classList.add("rotate-left");
+              break;
+            case "ArrowRight":
+              snakeHead.classList.remove("rotate-left", "rotate-bottom");
+              snakeHead.classList.add("rotate-right");
+              break;
+          }
+        });
             } else {
                 snakeElement.classList.add("snake", "item");
             }
-            snakeElement.id = "snake" + i.toString();
             gameBoard.appendChild(snakeElement);
-            console.log(`${snakeElement.id} - ${snakeElement.classList}`);
         }
     } else {
       if (updatePosition()) {
@@ -330,7 +331,7 @@ function customizeSnake() {
             buttons[i].style.borderColor = "transparent";
 
             const borderColor =
-                i === 1 ? "transparent" : `rgb(${i * 28}, ${i * 28}, ${i * 28})`;
+                i === 0 ? "transparent" : `rgb(${i * 28}, ${i * 28}, ${i * 28})`;
 
             buttons[i].animate(
                 [
