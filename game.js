@@ -61,13 +61,18 @@ function updatePosition() {
       snakePosition[0].y++;
       break;
   }
+
+  if (snakePosition[0].x < 21 && snakePosition[0].x > 0 && snakePosition[0].y > 0 && snakePosition[0].y <21)
+    return true;
+  return false;
+
   /* if snakePosition[0] enters apple then add new snake segment (last_x, last_y) */
 }
 
 function moveSnake() {
   let snakeElement = document.getElementById("snake0");
   if (snakeElement === null) {
-    let gameBoard = document.querySelector(".game-container");
+    // let gameBoard = document.querySelector(".game-container"); --made global variable
     for (let i = 0; i < snakePosition.length; i++) {
       snakeElement = document.createElement("div");
       snakeElement.style.gridRowStart = snakePosition[i].y;
@@ -101,11 +106,15 @@ function moveSnake() {
       console.log(`${snakeElement.id} - ${snakeElement.classList}`);
     }
   } else {
-    updatePosition();
-    for (let i = 0; i < snakePosition.length; i++) {
-      snakeElement = document.getElementById("snake" + i.toString());
-      snakeElement.style.gridRowStart = snakePosition[i].y;
-      snakeElement.style.gridColumnStart = snakePosition[i].x;
+    if (updatePosition()) {
+      for (let i = 0; i < snakePosition.length; i++) {
+        snakeElement = document.getElementById("snake" + i.toString());
+        snakeElement.style.gridRowStart = snakePosition[i].y;
+        snakeElement.style.gridColumnStart = snakePosition[i].x;
+      }
+    } else {
+      clearInterval(interval);
+      console.log("End game");
     }
   }
 }
@@ -133,13 +142,20 @@ function serveDirection() {
   });
 }
 
+let interval = null;
+
+
+
 function snakeSpeedAndMove() {
+  if (interval != null) {
+    clearInterval(interval);
+  }
   if (snakePosition.length >= 3) {
-    setInterval(moveSnake, 500);
+    interval = setInterval(moveSnake, 500);
   } else if (snakePosition.length >= 10) {
-    setInterval(moveSnake, 250);
+    interval = setInterval(moveSnake, 250);
   } else {
-    setInterval(moveSnake, 1000);
+    interval = setInterval(moveSnake, 1000);
   }
 }
 
