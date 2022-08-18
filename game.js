@@ -20,12 +20,16 @@ function randomGridPosition() {
 
 function getRandomApplePosition() {
   let newApplePosition;
-  while (newApplePosition == null /* || snake_position */) {
+  while (newApplePosition == null || whereSnakeIs(newApplePosition)) {
     newApplePosition = randomGridPosition();
   }
   return newApplePosition;
 }
-
+function whereSnakeIs(newApplePosition) {
+  return snakePosition.some(segment => { 
+    return segment.x === newApplePosition.x && newApplePosition.x === newApplePosition.y
+  })
+}
 /** direction: R, L, U, D */
 let direction = "D";
 let snakePosition = [
