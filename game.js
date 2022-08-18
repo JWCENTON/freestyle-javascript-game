@@ -1,4 +1,3 @@
-
 /** direction: R, L, U, D */
 let direction = "D";
 let snakePosition = [
@@ -13,6 +12,7 @@ let applePosition = getRandomApplePosition(); // { x: 10, y: 10 };
 
 const gameBoard = document.querySelector(".game-container");
 customizeSnake();
+
 function initGame() {
     // Your game can start here, but define separate functions, don't write everything in here :)
     serveDirection();
@@ -52,12 +52,12 @@ function randomGridPosition() {
 
 function getRandomApplePosition() {
 
-  let newApplePosition;
-  while (newApplePosition == null || whereSnakeIs(newApplePosition)) {
-    newApplePosition = randomGridPosition();
-  }
+    let newApplePosition;
+    while (newApplePosition == null || whereSnakeIs(newApplePosition)) {
+        newApplePosition = randomGridPosition();
+    }
 
-  return newApplePosition;
+    return newApplePosition;
 
 }
 
@@ -99,7 +99,7 @@ function updatePosition() {
             snakePosition[0].y++;
             break;
     }
-    
+
     /* if snakePosition[0] enters apple then add new snake segment (last_x, last_y) */
     for (let i = 4; i < snakePosition.length; i++) {
         printPosition();
@@ -136,8 +136,8 @@ function growSnake() {
         currentApplePosition.parentNode.removeChild(currentApplePosition);
         applePosition = getRandomApplePosition();
         drawApple();
+        return true;
     }
-    return true;
     return false;
 }
 
@@ -182,7 +182,9 @@ function moveSnake() {
         }
     } else {
         if (updatePosition()) {
-            growSnake();
+            if (growSnake()) {
+                snakeSpeedAndMove();
+            }
             for (let i = 0; i < snakePosition.length; i++) {
                 snakeElement = document.getElementById("snake" + i.toString());
                 snakeElement.style.gridRowStart = snakePosition[i].y;
@@ -227,14 +229,12 @@ function snakeSpeedAndMove() {
     if (interval != null) {
         clearInterval(interval);
     }
-    if (snakePosition.length >= 3) {
-        interval = setInterval(moveSnake, 500);
-    } else if (snakePosition.length >= 10) {
-        interval = setInterval(moveSnake, 250);
-    } else {
-        interval = setInterval(moveSnake, 1000);
-    }
+    let delay = 800;
+    let growth = 0.9;
+    delay = delay * Math.pow(growth, snakePosition.length-3);
+    interval = setInterval(moveSnake, delay);
 }
+
 
 let startButton = document.getElementById("start-game");
 
@@ -255,7 +255,6 @@ function clickToStartGame() {
 }
 
 clickToStartGame();
-
 
 
 function createSnake() {
