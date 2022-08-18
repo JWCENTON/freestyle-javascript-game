@@ -1,3 +1,4 @@
+
 /** direction: R, L, U, D */
 let direction = "D";
 let snakePosition = [
@@ -9,6 +10,7 @@ let snakePosition = [
 ];
 
 let applePosition = getRandomApplePosition(); // { x: 10, y: 10 };
+
 const gameBoard = document.querySelector(".game-container");
 customizeSnake();
 
@@ -21,14 +23,14 @@ function drawApple() {
 }
 
 function endGame(text) {
-  const header = document.querySelector('.category-header');
-  header.classList.remove("hidden");
-  header.classList.add("game-over-text");
-  header.textContent = text;
+    const header = document.querySelector('.category-header');
+    header.classList.remove("hidden");
+    header.classList.add("game-over-text");
+    header.textContent = text;
 
-  const background = document.createElement("div");
-  background.classList.add("game-over-background");
-  document.body.insertAdjacentElement("afterbegin", background);
+    const background = document.createElement("div");
+    background.classList.add("game-over-background");
+    document.body.insertAdjacentElement("afterbegin", background);
 }
 
 function randomGridPosition() {
@@ -51,9 +53,9 @@ function getRandomApplePosition() {
 }
 
 function whereSnakeIs(newApplePosition) {
-  return snakePosition.some(segment => { 
-    return segment.x === newApplePosition.x && newApplePosition.x === newApplePosition.y
-  })
+    return snakePosition.some(segment => {
+        return segment.x === newApplePosition.x && newApplePosition.x === newApplePosition.y
+    })
 }
 
 
@@ -88,18 +90,80 @@ function updatePosition() {
             snakePosition[0].y++;
             break;
     }
-
-
+    
+    /* if snakePosition[0] enters apple then add new snake segment (last_x, last_y) */
     for (let i = 4; i < snakePosition.length; i++) {
+        printPosition();
         if (snakePosition[0].x == snakePosition[i].x && snakePosition[0].y == snakePosition[i].y)
             return false;
     }
-
     if (snakePosition[0].x < 21 && snakePosition[0].x > 0 && snakePosition[0].y > 0 && snakePosition[0].y < 21)
         return true;
     return false;
-
     /* if snakePosition[0] enters apple then add new snake segment (last_x, last_y) */
+}
+
+function printPosition() {
+    for (const snake of snakePosition) {
+        console.log(snake);
+    }
+};
+
+
+function growSnake() {
+    const last_x = snakePosition[snakePosition.length - 1].x;
+    const last_y = snakePosition[snakePosition.length - 1].y;
+    let snakeElement = document.getElementById("snake0");
+
+    if (snakePosition[0].x == applePosition.x && snakePosition[0].y == applePosition.y) {
+        snakePosition.push({x: last_x, y: last_y});
+        snakeElement = document.createElement("div");
+        snakeElement.style.gridRowStart = snakePosition[snakePosition.length - 1].y;
+        snakeElement.style.gridColumnStart = snakePosition[snakePosition.length - 1].x;
+        snakeElement.classList.add("snake", "item");
+        snakeElement.id = "snake" + (snakePosition.length - 1);
+        gameBoard.appendChild(snakeElement);
+
+        // for (let i = 0; i < snakePosition.length; i++) {
+        //   snakeElement = document.createElement("div");
+        //   snakeElement.style.gridRowStart = snakePosition[i].y;
+        //   snakeElement.style.gridColumnStart = snakePosition[i].x;
+        //
+        //   if (i === 0) {
+        //     snakeElement.classList.add("snake-head", "item");
+        //     window.addEventListener("keydown", (event) => {
+        //       switch (event.key) {
+        //         case "ArrowUp":
+        //           snakeElement.classList.remove("rotate-left", "rotate-right", "rotate-bottom");
+        //           break;
+        //         case "ArrowDown":
+        //           snakeElement.classList.remove("rotate-left", "rotate-right");
+        //           snakeElement.classList.add("rotate-bottom");
+        //           break;
+        //         case "ArrowLeft":
+        //           snakeElement.classList.remove("rotate-right", "rotate-bottom");
+        //           snakeElement.classList.add("rotate-left");
+        //           break;
+        //         case "ArrowRight":
+        //           snakeElement.classList.remove("rotate-left", "rotate-bottom");
+        //           snakeElement.classList.add("rotate-right");
+        //           break;
+        //       }
+        //     });
+        //   } else {
+        //     snakeElement.classList.add("snake", "item");
+        //   }
+        //   snakeElement.id = "snake" + i.toString();
+        //   console.log(snakeElement.id);
+        //   // for (i = 0; i <= snakePosition.length; i++) {
+        //   //   snakeEls = document.getElementById(`${snakePosition.i}`);
+        //   //   snakeEls.parentNode.removeChild(snakeEls);
+        //   // }
+        //
+        //   gameBoard.appendChild(snakeElement);
+    }
+    return true;
+    return false;
 }
 
 function moveSnake() {
@@ -117,31 +181,33 @@ function moveSnake() {
                 snakeHead.classList.add("snake-head", "item");
                 window.addEventListener("keydown", (event) => {
                     switch (event.key) {
-            case "ArrowUp":
-              snakeHead.classList.remove("rotate-left", "rotate-right", "rotate-bottom");
-              break;
-            case "ArrowDown":
-              snakeHead.classList.remove("rotate-left", "rotate-right");
-              snakeHead.classList.add("rotate-bottom");
-              break;
-            case "ArrowLeft":
-              snakeHead.classList.remove("rotate-right", "rotate-bottom");
-              snakeHead.classList.add("rotate-left");
-              break;
-            case "ArrowRight":
-              snakeHead.classList.remove("rotate-left", "rotate-bottom");
-              snakeHead.classList.add("rotate-right");
-              break;
-          }
-        });
+                        case "ArrowUp":
+                            snakeHead.classList.remove("rotate-left", "rotate-right", "rotate-bottom");
+                            break;
+                        case "ArrowDown":
+                            snakeHead.classList.remove("rotate-left", "rotate-right");
+                            snakeHead.classList.add("rotate-bottom");
+                            break;
+                        case "ArrowLeft":
+                            snakeHead.classList.remove("rotate-right", "rotate-bottom");
+                            snakeHead.classList.add("rotate-left");
+                            break;
+                        case "ArrowRight":
+                            snakeHead.classList.remove("rotate-left", "rotate-bottom");
+                            snakeHead.classList.add("rotate-right");
+                            break;
+                    }
+                });
             } else {
                 snakeElement.classList.add("snake", "item");
             }
+            snakeElement.id = "snake" + i.toString();
             gameBoard.appendChild(snakeElement);
+            console.log(`${snakeElement.id} - ${snakeElement.classList}`);
         }
     } else {
-      if (updatePosition()) {
-
+        if (updatePosition()) {
+            growSnake();
             for (let i = 0; i < snakePosition.length; i++) {
                 snakeElement = document.getElementById("snake" + i.toString());
                 snakeElement.style.gridRowStart = snakePosition[i].y;
@@ -206,9 +272,9 @@ function clickToStartGame() {
         Array.from(document.querySelectorAll('button')).forEach(button => {
             button.remove();
         });
-    document.querySelector(".category-header").classList.add("hidden");
-    initGame();
-  });
+        document.querySelector(".category-header").remove();
+        initGame();
+    });
 }
 
 clickToStartGame();
@@ -273,7 +339,7 @@ function customizeSnake() {
 
     const startGame = function (chosenButton) {
         snakeShape = chosenButton.style.borderRadius;
-        category.classList.add("hidden")
+        category.remove();
         deleteButtons();
         document.body.style.setProperty("--snakeColor", snakeColor);
         document.body.style.setProperty("--snakeShape", snakeShape);
@@ -343,7 +409,7 @@ function customizeSnake() {
             buttons[i].style.borderColor = "transparent";
 
             const borderColor =
-                i === 0 ? "transparent" : `rgb(${i * 28}, ${i * 28}, ${i * 28})`;
+                i === 1 ? "transparent" : `rgb(${i * 28}, ${i * 28}, ${i * 28})`;
 
             buttons[i].animate(
                 [
