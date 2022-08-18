@@ -1,3 +1,13 @@
+/** direction: R, L, U, D */
+let direction = "D";
+let snakePosition = [
+    {x: 6, y: 1},
+    {x: 5, y: 1},
+    {x: 4, y: 1},
+    {x: 3, y: 1},
+    {x: 2, y: 1},
+];
+
 let applePosition = getRandomApplePosition(); // { x: 10, y: 10 };
 const gameBoard = document.querySelector(".game-container");
 customizeSnake();
@@ -32,7 +42,7 @@ function randomGridPosition() {
 function getRandomApplePosition() {
 
   let newApplePosition;
-  while (newApplePosition == null /*|| whereSnakeIs(newApplePosition)*/) {
+  while (newApplePosition == null || whereSnakeIs(newApplePosition)) {
     newApplePosition = randomGridPosition();
   }
 
@@ -46,15 +56,6 @@ function whereSnakeIs(newApplePosition) {
   })
 }
 
-/** direction: R, L, U, D */
-let direction = "D";
-let snakePosition = [
-    {x: 6, y: 1},
-    {x: 5, y: 1},
-    {x: 4, y: 1},
-    {x: 3, y: 1},
-    {x: 2, y: 1},
-];
 
 function getDirection() {
     return direction;
