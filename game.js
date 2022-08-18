@@ -128,44 +128,6 @@ function growSnake() {
         currentApplePosition.parentNode.removeChild(currentApplePosition);
         applePosition = getRandomApplePosition();
         drawApple();
-
-        // for (let i = 0; i < snakePosition.length; i++) {
-        //   snakeElement = document.createElement("div");
-        //   snakeElement.style.gridRowStart = snakePosition[i].y;
-        //   snakeElement.style.gridColumnStart = snakePosition[i].x;
-        //
-        //   if (i === 0) {
-        //     snakeElement.classList.add("snake-head", "item");
-        //     window.addEventListener("keydown", (event) => {
-        //       switch (event.key) {
-        //         case "ArrowUp":
-        //           snakeElement.classList.remove("rotate-left", "rotate-right", "rotate-bottom");
-        //           break;
-        //         case "ArrowDown":
-        //           snakeElement.classList.remove("rotate-left", "rotate-right");
-        //           snakeElement.classList.add("rotate-bottom");
-        //           break;
-        //         case "ArrowLeft":
-        //           snakeElement.classList.remove("rotate-right", "rotate-bottom");
-        //           snakeElement.classList.add("rotate-left");
-        //           break;
-        //         case "ArrowRight":
-        //           snakeElement.classList.remove("rotate-left", "rotate-bottom");
-        //           snakeElement.classList.add("rotate-right");
-        //           break;
-        //       }
-        //     });
-        //   } else {
-        //     snakeElement.classList.add("snake", "item");
-        //   }
-        //   snakeElement.id = "snake" + i.toString();
-        //   console.log(snakeElement.id);
-        //   // for (i = 0; i <= snakePosition.length; i++) {
-        //   //   snakeEls = document.getElementById(`${snakePosition.i}`);
-        //   //   snakeEls.parentNode.removeChild(snakeEls);
-        //   // }
-        //
-        //   gameBoard.appendChild(snakeElement);
     }
     return true;
     return false;
@@ -221,6 +183,7 @@ function moveSnake() {
         } else {
             clearInterval(interval);
             console.log("End game");
+            endGame("Game-Over");
         }
     }
 }
@@ -277,7 +240,7 @@ function clickToStartGame() {
         Array.from(document.querySelectorAll('button')).forEach(button => {
             button.remove();
         });
-        document.querySelector(".category-header").remove();
+        document.querySelector(".category-header").classList.add('hidden');
         initGame();
     });
 }
@@ -379,29 +342,6 @@ function customizeSnake() {
         }
     };
 
-    // const chooseBorderStyle = function (chosenButton) {
-    //   category.textContent = "Choose border style";
-    //
-    //   borderColor = chosenButton.style.borderColor;
-    //
-    //   const borderStyles = [
-    //     "hidden",
-    //     "dotted",
-    //     "dashed",
-    //     "solid",
-    //     "double",
-    //     "dotted solid",
-    //     "dotted dashed",
-    //     "double solid",
-    //     "solid double",
-    //   ];
-    //
-    //   for (let i = 0; i < buttons.length; i++) {
-    //     buttons[i].style.borderColor = borderColor;
-    //     buttons[i].style.borderStyle = borderStyles[i];
-    //     buttons[i].onclick = chooseSnakeShape;
-    //   }
-    // };
 
     const chooseBorderColor = function (chosenButton) {
         category.textContent = "Choose border color";
