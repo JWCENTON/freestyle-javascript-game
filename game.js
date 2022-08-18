@@ -20,16 +20,18 @@ function randomGridPosition() {
 
 function getRandomApplePosition() {
   let newApplePosition;
-  while (newApplePosition == null || whereSnakeIs(newApplePosition)) {
+  while (newApplePosition == null /*|| whereSnakeIs(newApplePosition)*/) {
     newApplePosition = randomGridPosition();
   }
   return newApplePosition;
 }
+
 function whereSnakeIs(newApplePosition) {
   return snakePosition.some(segment => { 
     return segment.x === newApplePosition.x && newApplePosition.x === newApplePosition.y
   })
 }
+
 /** direction: R, L, U, D */
 let direction = "D";
 let snakePosition = [
@@ -122,7 +124,8 @@ function moveSnake() {
       }
     } else {
       clearInterval(interval);
-      console.log("End game");
+      console.log("End game")
+      alert("You lose. Referesh page to play again");
     }
   }
 }
