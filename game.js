@@ -30,7 +30,7 @@ function getRandomApplePosition() {
 
 function whereSnakeIs(newApplePosition) {
   return snakePosition.some(segment => { 
-    return segment.x === newApplePosition.x && newApplePosition.x === newApplePosition.y
+    return segment.x === newApplePosition.x && segment.y === newApplePosition.y
   })
 }
 
