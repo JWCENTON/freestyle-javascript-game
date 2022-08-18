@@ -1,6 +1,6 @@
-
 /** direction: R, L, U, D */
 let direction = "D";
+let lastDirection = direction;
 let snakePosition = [
     {x: 6, y: 1},
     {x: 5, y: 1},
@@ -13,6 +13,7 @@ let applePosition = getRandomApplePosition(); // { x: 10, y: 10 };
 
 const gameBoard = document.querySelector(".game-container");
 customizeSnake();
+
 function initGame() {
     // Your game can start here, but define separate functions, don't write everything in here :)
     serveDirection();
@@ -52,12 +53,12 @@ function randomGridPosition() {
 
 function getRandomApplePosition() {
 
-  let newApplePosition;
-  while (newApplePosition == null || whereSnakeIs(newApplePosition)) {
-    newApplePosition = randomGridPosition();
-  }
+    let newApplePosition;
+    while (newApplePosition == null || whereSnakeIs(newApplePosition)) {
+        newApplePosition = randomGridPosition();
+    }
 
-  return newApplePosition;
+    return newApplePosition;
 
 }
 
@@ -69,12 +70,11 @@ function whereSnakeIs(newApplePosition) {
 
 
 function getDirection() {
+    lastDirection = direction;
     return direction;
 }
 
 function updatePosition() {
-    const last_x = snakePosition[snakePosition.length - 1].x;
-    const last_y = snakePosition[snakePosition.length - 1].y;
     const direction = getDirection();
     console.log("Direction: " + direction);
     for (let index = snakePosition.length - 1; index > 0; index--) {
@@ -99,8 +99,7 @@ function updatePosition() {
             snakePosition[0].y++;
             break;
     }
-    
-    /* if snakePosition[0] enters apple then add new snake segment (last_x, last_y) */
+
     for (let i = 4; i < snakePosition.length; i++) {
         printPosition();
         if (snakePosition[0].x == snakePosition[i].x && snakePosition[0].y == snakePosition[i].y)
@@ -109,7 +108,6 @@ function updatePosition() {
     if (snakePosition[0].x < 21 && snakePosition[0].x > 0 && snakePosition[0].y > 0 && snakePosition[0].y < 21)
         return true;
     return false;
-    /* if snakePosition[0] enters apple then add new snake segment (last_x, last_y) */
 }
 
 function printPosition() {
@@ -136,8 +134,8 @@ function growSnake() {
         currentApplePosition.parentNode.removeChild(currentApplePosition);
         applePosition = getRandomApplePosition();
         drawApple();
+        return true;
     }
-    return true;
     return false;
 }
 
@@ -154,25 +152,17 @@ function moveSnake() {
                 snakeElement.classList.add("snake-head", "item");
                 const snakeHead = snakeElement;
                 snakeHead.classList.add("snake-head", "item");
-                window.addEventListener("keydown", (event) => {
-                    switch (event.key) {
-                        case "ArrowUp":
-                            snakeHead.classList.remove("rotate-left", "rotate-right", "rotate-bottom");
-                            break;
-                        case "ArrowDown":
-                            snakeHead.classList.remove("rotate-left", "rotate-right");
-                            snakeHead.classList.add("rotate-bottom");
-                            break;
-                        case "ArrowLeft":
-                            snakeHead.classList.remove("rotate-right", "rotate-bottom");
-                            snakeHead.classList.add("rotate-left");
-                            break;
-                        case "ArrowRight":
-                            snakeHead.classList.remove("rotate-left", "rotate-bottom");
-                            snakeHead.classList.add("rotate-right");
-                            break;
-                    }
-                });
+                switch (direction) {
+                    case "D":
+                        snakeHead.classList.add("rotate-bottom");
+                        break;
+                    case "L":
+                        snakeHead.classList.add("rotate-left");
+                        break;
+                    case "R":
+                        snakeHead.classList.add("rotate-right");
+                        break;
+                }
             } else {
                 snakeElement.classList.add("snake", "item");
             }
@@ -182,7 +172,9 @@ function moveSnake() {
         }
     } else {
         if (updatePosition()) {
-            growSnake();
+            if (growSnake()) {
+                snakeSpeedAndMove();
+            }
             for (let i = 0; i < snakePosition.length; i++) {
                 snakeElement = document.getElementById("snake" + i.toString());
                 snakeElement.style.gridRowStart = snakePosition[i].y;
@@ -199,22 +191,30 @@ function moveSnake() {
 
 function serveDirection() {
     window.addEventListener("keydown", (event) => {
+        let snakeHead = document.getElementById("snake0");
         switch (event.key) {
             case "ArrowUp":
-                if (direction === "D") break;
+                if (lastDirection === "D") break;
                 direction = "U";
+                snakeHead.classList.remove("rotate-left", "rotate-right", "rotate-bottom");
                 break;
             case "ArrowDown":
-                if (direction === "U") break;
+                if (lastDirection === "U") break;
                 direction = "D";
+                snakeHead.classList.remove("rotate-left", "rotate-right");
+                snakeHead.classList.add("rotate-bottom");
                 break;
             case "ArrowLeft":
-                if (direction === "R") break;
+                if (lastDirection === "R") break;
                 direction = "L";
+                snakeHead.classList.remove("rotate-right", "rotate-bottom");
+                snakeHead.classList.add("rotate-left");
                 break;
             case "ArrowRight":
-                if (direction === "L") break;
+                if (lastDirection === "L") break;
                 direction = "R";
+                snakeHead.classList.remove("rotate-left", "rotate-bottom");
+                snakeHead.classList.add("rotate-right");
                 break;
         }
     });
@@ -227,14 +227,12 @@ function snakeSpeedAndMove() {
     if (interval != null) {
         clearInterval(interval);
     }
-    if (snakePosition.length >= 3) {
-        interval = setInterval(moveSnake, 500);
-    } else if (snakePosition.length >= 10) {
-        interval = setInterval(moveSnake, 250);
-    } else {
-        interval = setInterval(moveSnake, 1000);
-    }
+    let delay = 800;
+    let growth = 0.9;
+    delay = delay * Math.pow(growth, snakePosition.length-3);
+    interval = setInterval(moveSnake, delay);
 }
+
 
 let startButton = document.getElementById("start-game");
 
@@ -255,7 +253,6 @@ function clickToStartGame() {
 }
 
 clickToStartGame();
-
 
 
 function createSnake() {
