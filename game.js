@@ -13,6 +13,12 @@ let applePosition = getRandomApplePosition(); // { x: 10, y: 10 };
 
 const gameBoard = document.querySelector(".game-container");
 customizeSnake();
+function initGame() {
+    // Your game can start here, but define separate functions, don't write everything in here :)
+    serveDirection();
+    drawApple();
+    snakeSpeedAndMove();
+}
 
 function drawApple() {
     const appleElement = document.createElement("div");
@@ -27,7 +33,7 @@ function endGame(text) {
     document.querySelector(".category-header").classList.remove('hidden');
     const header = document.querySelector('.category-header');
     console.log(header);
-    // header.classList.remove("hidden");
+    header.classList.remove("hidden");
     header.classList.add("game-over-text");
     header.textContent = text;
 
@@ -250,12 +256,7 @@ function clickToStartGame() {
 
 clickToStartGame();
 
-function initGame() {
-    // Your game can start here, but define separate functions, don't write everything in here :)
-    serveDirection();
-    drawApple();
-    snakeSpeedAndMove();
-}
+
 
 function createSnake() {
     const snake = [];
@@ -310,7 +311,7 @@ function customizeSnake() {
 
     const startGame = function (chosenButton) {
         snakeShape = chosenButton.style.borderRadius;
-        category.remove();
+        category.classList.add('hidden');
         deleteButtons();
         document.body.style.setProperty("--snakeColor", snakeColor);
         document.body.style.setProperty("--snakeShape", snakeShape);
