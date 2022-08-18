@@ -19,6 +19,7 @@ function drawApple() {
     appleElement.style.gridRowStart = applePosition.y;
     appleElement.style.gridColumnStart = applePosition.x;
     appleElement.classList.add("apple", "item");
+    appleElement.id = 'apple';
     gameBoard.appendChild(appleElement);
 }
 
@@ -123,6 +124,10 @@ function growSnake() {
         snakeElement.classList.add("snake", "item");
         snakeElement.id = "snake" + (snakePosition.length - 1);
         gameBoard.appendChild(snakeElement);
+        currentApplePosition = document.getElementById('apple');
+        currentApplePosition.parentNode.removeChild(currentApplePosition);
+        applePosition = getRandomApplePosition();
+        drawApple();
 
         // for (let i = 0; i < snakePosition.length; i++) {
         //   snakeElement = document.createElement("div");
