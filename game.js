@@ -217,24 +217,6 @@ function moveSnake() {
       console.log("End game");
     }
   }
-            } else {
-                snakeElement.classList.add("snake", "item");
-            }
-            gameBoard.appendChild(snakeElement);
-        }
-    } else {
-      if (updatePosition()) {
-
-            for (let i = 0; i < snakePosition.length; i++) {
-                snakeElement = document.getElementById("snake" + i.toString());
-                snakeElement.style.gridRowStart = snakePosition[i].y;
-                snakeElement.style.gridColumnStart = snakePosition[i].x;
-            }
-        } else {
-            clearInterval(interval);
-            console.log("End game");
-        }
-    }
 }
 
 function serveDirection() {
@@ -285,9 +267,9 @@ function clickToStartGame() {
     document.body.style.setProperty("--snakeColor", "rgb(6, 214, 160)");
     document.body.style.setProperty("--snakeShape", "1rem");
     document.body.style.setProperty("--snakeBorderColor", "transparent");
-    
+
     Array.from(document.querySelectorAll('button')).forEach(button => {
-     button.remove(); 
+     button.remove();
     });
     document.querySelector(".category-header").remove();
     initGame();
