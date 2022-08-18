@@ -49,15 +49,19 @@ function updatePosition() {
   }
   switch (direction) {
     case "R":
+      if (snakePosition[0].x == 21) snakePosition[0].x = 0;
       snakePosition[0].x++;
       break;
     case "L":
+      if (snakePosition[0].x == 0) snakePosition[0].x = 21;
       snakePosition[0].x--;
       break;
     case "U":
+      if (snakePosition[0].y == 0) snakePosition[0].y = 21;
       snakePosition[0].y--;
       break;
     case "D":
+      if (snakePosition[0].y == 21) snakePosition[0].y = 0;
       snakePosition[0].y++;
       break;
   }
@@ -163,6 +167,15 @@ let startButton = document.getElementById("start-game");
 function clickToStartGame() {
   startButton.addEventListener("click", (e) => {
     e.currentTarget.style.visibility = "hidden";
+
+    document.body.style.setProperty("--snakeColor", "rgb(6, 214, 160)");
+    document.body.style.setProperty("--snakeShape", "1rem");
+    document.body.style.setProperty("--snakeBorderColor", "transparent");
+    
+    Array.from(document.querySelectorAll('button')).forEach(button => {
+     button.remove(); 
+    });
+    document.querySelector(".category-header").remove();
     initGame();
   });
 }
