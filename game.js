@@ -19,11 +19,20 @@ function randomGridPosition() {
 }
 
 function getRandomApplePosition() {
-    let newApplePosition;
-    while (newApplePosition == null /* || snake_position */) {
-        newApplePosition = randomGridPosition();
-    }
-    return newApplePosition;
+
+  let newApplePosition;
+  while (newApplePosition == null /*|| whereSnakeIs(newApplePosition)*/) {
+    newApplePosition = randomGridPosition();
+  }
+
+  return newApplePosition;
+
+}
+
+function whereSnakeIs(newApplePosition) {
+  return snakePosition.some(segment => { 
+    return segment.x === newApplePosition.x && newApplePosition.x === newApplePosition.y
+  })
 }
 
 /** direction: R, L, U, D */
@@ -118,7 +127,8 @@ function moveSnake() {
             console.log(`${snakeElement.id} - ${snakeElement.classList}`);
         }
     } else {
-        if (updatePosition()) {
+      if (updatePosition()) {
+
             for (let i = 0; i < snakePosition.length; i++) {
                 snakeElement = document.getElementById("snake" + i.toString());
                 snakeElement.style.gridRowStart = snakePosition[i].y;
