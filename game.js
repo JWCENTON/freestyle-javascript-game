@@ -29,9 +29,7 @@ function getRandomApplePosition() {
 /** direction: R, L, U, D */
 let direction = "D";
 let snakePosition = [
-  { x: 4, y: 1 },
-  { x: 3, y: 1 },
-  { x: 2, y: 1 },
+  { x: 4, y: 1 }
 ];
 
 function getDirection() {
@@ -69,8 +67,73 @@ function updatePosition() {
   if (snakePosition[0].x < 21 && snakePosition[0].x > 0 && snakePosition[0].y > 0 && snakePosition[0].y <21)
     return true;
   return false;
-
   /* if snakePosition[0] enters apple then add new snake segment (last_x, last_y) */
+}
+
+function printPosition() {
+  for (const snake of snakePosition) {
+    console.log(snake);
+  }
+};
+
+
+function growSnake () {
+  const last_x = snakePosition[snakePosition.length - 1].x;
+  const last_y = snakePosition[snakePosition.length - 1].y;
+  let snakeElement = document.getElementById("snake0");
+  printPosition();
+
+  if (snakePosition[0].x == applePosition.x && snakePosition[0].y == applePosition.y) {
+     printPosition();
+     snakePosition.push({x: last_x, y: last_y});
+     printPosition();
+     snakeElement = document.createElement("div");
+     snakeElement.style.gridRowStart = snakePosition[snakePosition.length - 1].y;
+     snakeElement.style.gridColumnStart = snakePosition[snakePosition.length - 1].x;
+     snakeElement.classList.add("snake", "item");
+     snakeElement.id = "snake" + (snakePosition.length - 1);
+     gameBoard.appendChild(snakeElement);
+
+     // for (let i = 0; i < snakePosition.length; i++) {
+     //   snakeElement = document.createElement("div");
+     //   snakeElement.style.gridRowStart = snakePosition[i].y;
+     //   snakeElement.style.gridColumnStart = snakePosition[i].x;
+     //
+     //   if (i === 0) {
+     //     snakeElement.classList.add("snake-head", "item");
+     //     window.addEventListener("keydown", (event) => {
+     //       switch (event.key) {
+     //         case "ArrowUp":
+     //           snakeElement.classList.remove("rotate-left", "rotate-right", "rotate-bottom");
+     //           break;
+     //         case "ArrowDown":
+     //           snakeElement.classList.remove("rotate-left", "rotate-right");
+     //           snakeElement.classList.add("rotate-bottom");
+     //           break;
+     //         case "ArrowLeft":
+     //           snakeElement.classList.remove("rotate-right", "rotate-bottom");
+     //           snakeElement.classList.add("rotate-left");
+     //           break;
+     //         case "ArrowRight":
+     //           snakeElement.classList.remove("rotate-left", "rotate-bottom");
+     //           snakeElement.classList.add("rotate-right");
+     //           break;
+     //       }
+     //     });
+     //   } else {
+     //     snakeElement.classList.add("snake", "item");
+     //   }
+     //   snakeElement.id = "snake" + i.toString();
+     //   console.log(snakeElement.id);
+     //   // for (i = 0; i <= snakePosition.length; i++) {
+     //   //   snakeEls = document.getElementById(`${snakePosition.i}`);
+     //   //   snakeEls.parentNode.removeChild(snakeEls);
+     //   // }
+     //
+     //   gameBoard.appendChild(snakeElement);
+     }
+    return true;
+  return false;
 }
 
 function moveSnake() {
@@ -111,6 +174,7 @@ function moveSnake() {
     }
   } else {
     if (updatePosition()) {
+      growSnake();
       for (let i = 0; i < snakePosition.length; i++) {
         snakeElement = document.getElementById("snake" + i.toString());
         snakeElement.style.gridRowStart = snakePosition[i].y;
