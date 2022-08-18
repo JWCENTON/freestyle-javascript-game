@@ -10,6 +10,17 @@ function drawApple() {
     gameBoard.appendChild(appleElement);
 }
 
+function endGame(text) {
+  const header = document.querySelector('.category-header');
+  header.classList.remove("hidden");
+  header.classList.add("game-over-text");
+  header.textContent = text;
+
+  const background = document.createElement("div");
+  background.classList.add("game-over-background");
+  document.body.insertAdjacentElement("afterbegin", background);
+}
+
 function randomGridPosition() {
     let gameBoardSize = 20;
     return {
@@ -194,9 +205,9 @@ function clickToStartGame() {
         Array.from(document.querySelectorAll('button')).forEach(button => {
             button.remove();
         });
-        document.querySelector(".category-header").remove();
-        initGame();
-    });
+    document.querySelector(".category-header").classList.add("hidden");
+    initGame();
+  });
 }
 
 clickToStartGame();
@@ -261,7 +272,7 @@ function customizeSnake() {
 
     const startGame = function (chosenButton) {
         snakeShape = chosenButton.style.borderRadius;
-        category.remove();
+        category.classList.add("hidden")
         deleteButtons();
         document.body.style.setProperty("--snakeColor", snakeColor);
         document.body.style.setProperty("--snakeShape", snakeShape);
