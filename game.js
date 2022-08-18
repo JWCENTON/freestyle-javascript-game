@@ -147,6 +147,15 @@ let startButton = document.getElementById("start-game");
 function clickToStartGame() {
   startButton.addEventListener("click", (e) => {
     e.currentTarget.style.visibility = "hidden";
+
+    document.body.style.setProperty("--snakeColor", "rgb(6, 214, 160)");
+    document.body.style.setProperty("--snakeShape", "1rem");
+    document.body.style.setProperty("--snakeBorderColor", "transparent");
+    
+    Array.from(document.querySelectorAll('button')).forEach(button => {
+     button.remove(); 
+    });
+    document.querySelector(".category-header").remove();
     initGame();
   });
 }
