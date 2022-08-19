@@ -190,15 +190,22 @@ function moveSnake() {
     }
 }
 
-// let directions = {'ArrowUp': {direction: 'U'},   - to correct without switch
-//                     'ArrowDown': {direction: 'D'}}
+// let directions = {'ArrowUp': {move: 'U'},   // - use it without switch
+//                 'ArrowDown': {move: 'D'},
+//                 'ArrowLeft': {move: 'L'},
+//                 'ArrowRight': {move: 'R'}};
+
 
 function serveDirection() {
     window.addEventListener("keydown", (event) => {
         let snakeHead = document.getElementById("snake0");
-        // let chosenDirection = directions[event.key];
-        // direction = chosenDirection.direction;
-        // snakeHead.classList.add(chosenDirection.cssClass);
+        // let chosenDirection = directions[event.key];        // use this instead of switch
+        // console.log(chosenDirection);
+        // direction = chosenDirection.move;
+        // console.log(direction);
+        // snakeHead.classList.add(chosenDirection.cssClass);  // work on adding classes to direction
+
+
 
         switch (event.key) {
             case "ArrowUp":
