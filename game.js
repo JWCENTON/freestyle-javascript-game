@@ -1,4 +1,5 @@
 /** direction: R, L, U, D */
+let interval = null;
 let direction = "D";
 let lastDirection = direction;
 let snakePosition = [
@@ -62,7 +63,7 @@ function getRandomApplePosition() {
 
 }
 
-function whereSnakeIs(newApplePosition) {
+function whereSnakeIs(newApplePosition) { // isSnakeAtPosition (position)
     return snakePosition.some(segment => {
         return segment.x === newApplePosition.x & segment.y === newApplePosition.y
     })
@@ -189,9 +190,16 @@ function moveSnake() {
     }
 }
 
+// let directions = {'ArrowUp': {direction: 'U'},   - to correct without switch
+//                     'ArrowDown': {direction: 'D'}}
+
 function serveDirection() {
     window.addEventListener("keydown", (event) => {
         let snakeHead = document.getElementById("snake0");
+        // let chosenDirection = directions[event.key];
+        // direction = chosenDirection.direction;
+        // snakeHead.classList.add(chosenDirection.cssClass);
+
         switch (event.key) {
             case "ArrowUp":
                 if (lastDirection === "D") break;
@@ -220,10 +228,9 @@ function serveDirection() {
     });
 }
 
-let interval = null;
 
 
-function snakeSpeedAndMove() {
+function snakeSpeedAndMove() { // setSnakeSpeed()
     if (interval != null) {
         clearInterval(interval);
     }
